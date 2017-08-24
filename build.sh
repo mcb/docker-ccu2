@@ -87,7 +87,7 @@ else
   if [ ! -d ubi_reader ]; then
     git clone https://github.com/jrspruitt/ubi_reader
   fi
-  python -mplatform | grep -qi Ubuntu && apt-get update &&  apt-get install python-lzo || true
+  python -mplatform | grep -qi debian && apt-get update &&  apt-get install python-lzo || true
   python -mplatform | grep -qi ARCH && apt-get update &&  pip2 install python-lzo || true
   rm -rf ubi
   PYTHONPATH=ubi_reader python2 ubi_reader/scripts/ubireader_extract_files -k $CCU2_UBI -o ubi
