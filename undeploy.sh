@@ -34,10 +34,10 @@ fi
 
 #Remove container if already exits
 echo
-docker service ls 2>/dev/null|grep -q $DOCKER_NAME && echo "Stopping docker service $DOCKER_NAME"  && docker service rm $DOCKER_NAME
-echo $(docker ps -a      |grep -q $DOCKER_NAME && echo "Stoping docker container $DOCKER_NAME" && docker stop $DOCKER_NAME && docker rm -f $DOCKER_NAME)
+$CONTAINER_ENGINE service ls 2>/dev/null|grep -q $DOCKER_NAME && echo "Stopping docker service $DOCKER_NAME"  && $CONTAINER_ENGINE service rm $DOCKER_NAME
+echo $($CONTAINER_ENGINE ps -a      |grep -q $DOCKER_NAME && echo "Stoping docker container $DOCKER_NAME" && $CONTAINER_ENGINE stop $DOCKER_NAME && $CONTAINER_ENGINE rm -f $DOCKER_NAME)
 
 # Legacy
 DOCKER_NAME="ccu2"
-docker service ls 2>/dev/null|grep -q $DOCKER_NAME && echo "Stopping docker service $DOCKER_NAME"  && docker service rm $DOCKER_NAME
-echo $(docker ps -a      |grep -q $DOCKER_NAME && echo "Stoping docker container $DOCKER_NAME" && docker stop $DOCKER_NAME && docker rm -f $DOCKER_NAME)
+${CONTAINER_ENGINE} service ls 2>/dev/null|grep -q $DOCKER_NAME && echo "Stopping docker service $DOCKER_NAME"  && $CONTAINER_ENGINE service rm $DOCKER_NAME
+echo $($CONTAINER_ENGINE ps -a      |grep -q $DOCKER_NAME && echo "Stoping docker container $DOCKER_NAME" && $CONTAINER_ENGINE stop $DOCKER_NAME && $CONTAINER_ENGINE rm -f $DOCKER_NAME)

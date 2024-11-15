@@ -44,7 +44,7 @@ fi
 
 #This only works on Debian/Ubuntu based OSes such as Armbian and Raspbian
 if which dpkg>/dev/null && ! modinfo eq3_char_loop >/dev/null 2>&1 ; then
-  echo "Installing pivcpu extensions"
+  echo "Installing pivccu extensions"
 
   #Add repository
   apt install -y wget
@@ -106,7 +106,7 @@ if [ $DOCKER_MODE = swarm ] ; then
   DOCKER_START_OPTS="--network $DOCKER_NAME $DOCKER_START_OPTS"
 
   echo "docker service create $DOCKER_START_OPTS"
-  docker service create $DOCKER_START_OPTS
+  $CONTAINER_ENGINE service create $DOCKER_START_OPTS
 
 elif [ $DOCKER_MODE = single ] ; then
   echo "Starting container as plain docker"
@@ -120,8 +120,8 @@ elif [ $DOCKER_MODE = single ] ; then
   #test -e /dev/ttyAMA0  && DOCKER_START_OPTS="--device=/dev/ttyAMA0:/dev_org/ttyAMA0:rwm  $DOCKER_START_OPTS"
   #test -e /dev/ttyS1    && DOCKER_START_OPTS="--device=/dev/ttyS1:/dev_org/ttyS1:rwm      $DOCKER_START_OPTS"
 
-  echo "docker run $DOCKER_START_OPTS"
-  docker run $DOCKER_START_OPTS
+  echo "$CONTAINER_ENGINE run $DOCKER_START_OPTS"
+  $CONTAINER_ENGINE run $DOCKER_START_OPTS
 else
   echo "No starting container: DOCKER_MODE = $DOCKER_MODE"
   exit 0
@@ -134,6 +134,6 @@ if [[ ${DOCKER_CCU_DATA} == */* ]]; then
   ln -sf ${DOCKER_CCU_DATA}/etc/config/rfd.conf .
 else
   echo "You can find its location with the command 'docker volume inspect ccu_data'"
-  docker volume inspect ${DOCKER_CCU_DATA}
+  $CONTAINER_ENGINE volume inspect ${DOCKER_CCU_DATA}
   ln -sf /var/lib/docker/volumes/${DOCKER_CCU_DATA}/_data/etc/config/rfd.conf .
 fi
